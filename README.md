@@ -30,13 +30,24 @@ Edit this document to include your answers after each question. Make sure to lea
 
 1. What is the DOM?
 
+DOM or also called Document Object Model is considered the standard for accessing documents. It's built to dynamically change and update the structures and styles of a document.
+
 2. What is an event?
+
+An event is something that occurs in JS. This could be sorting, looping, or other things. Checking to see if a number is even.
 
 3. What is an event listener?
 
+An event listener is a line of code that defines somethign that will happen after something else is done. An example of this would be when someone clicks on this box it will in return, display a message or drop down a menu.
+
 4. Why would we convert a NodeList into an Array?
 
+It makes it so it can be more easily accessable, mutatible, and also allows for the most acceptable form of querying that object and using it as a component.
+
 5. What is a component?
+
+it's a small and reusable block of code. Without the components in js, we would have to write the same code over and over. Components give us the ability to follow the DRY rule.
+
 
 ### Git Set up
 
