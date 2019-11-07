@@ -18,58 +18,46 @@
 //
 // Create a card for each of the articles and add the card to the DOM.
 
-const cardsContainer = document.querySelector('.cards-container')
 
-axios.get('https://lambda-times-backend.herokuapp.com/articles')
-    .then(data => {
-        const articles = data.data.articles
-
-        const articlesArr = []
-        articlesArr.push(articles.bootstrap, articles.javascript, articles.jquery, articles.node, articles.technology)
-
-        const allArticles = []
-        articlesArr.forEach(subject => subject.forEach(article =>{ allArticles.push(article)}))
-
-        class Articles {
-            constructor(article) {
-                this.authorName = article.authorName
-                this.authorPhoto = article.authorPhoto
-                this.headline = article.headline
-
-                const newArticle = createCard(this)
-                cardsContainer.appendChild(newArticle)
-            }
-        }
-
-        const updateArticles = allArticles.forEach(article => new Articles(article))
+axios.get('https://lambda-times-backend.herokuapp.com/articles') //was able to GET data from given site
+    .then(dogCards => {
+        const articleArray = dogCards.data.articles;
+        console.log(dogCards)
+        Object.keys(articleArray).forEach(key => { //created a then and catch including a forEach to wrap everything together
+            value = articleArray[key];
+            value.forEach(arts =>{
+                const containCards = document.querySelector('.cards-container');
+                containCards.append(News(arts))
+            })
+        })
     })
-    .catch(error => {
-        console.log(error)
-    })
+    .catch(clear => {
+    console.log(clear);
+});
 
-function createCard(obj) {
-    const card = document.createElement('div')
-    const headline = document.createElement('div')
-    const author = document.createElement('div')
-    const imgContainer = document.createElement('div')
-    const img = document.createElement('img')
-    const authorsName = document.createElement('span')
+function News(collumns) { //info given from html 
+    const pupCards = document.createElement('div');
+    const Headline = document.createElement('div');
+    const author = document.createElement('div');
+    const imgContainer = document.createElement('div');
+    const img = document.createElement('img');
+    const authorsName = document.createElement('span');
 
-    card.classList.add('card')
-    headline.classList.add('headline')
-    author.classList.add('author')
-    imgContainer.classList.add('img-container')
+// added dog info into parent elements 
+    pupCards.appendChild(Headline);
+    pupCards.appendChild(author);
+    author.appendChild(imgContainer);
+    author.appendChild(authorsName);
+    imgContainer.appendChild(img);
 
-    card.appendChild(headline)
-    card.appendChild(author)
-    author.appendChild(imgContainer)
-    imgContainer.appendChild(img)
-    author.appendChild(authorsName)
+    pupCards.classList.add("card");
+    Headline.classList.add("headline");
+    author.classList.add("author");
+    imgContainer.classList.add("img-container");
 
-    headline.textContent = obj.headline
-    img.src = obj.authorPhoto
-    authorsName.textContent = obj.authorName
-
-    return card
+    Headline.textContent = collumns.headline;
+    authorsName.textContent = collumns.authorName;
+    img.src = collumns.authorPhoto;
+    
+    return pupCards; //returned the cards
 }
-
