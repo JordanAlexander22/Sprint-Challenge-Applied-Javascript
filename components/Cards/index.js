@@ -17,3 +17,47 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+
+
+axios.get('https://lambda-times-backend.herokuapp.com/articles') //was able to GET data from given site
+    .then(dogCards => {
+        const articleArray = dogCards.data.articles;
+        console.log(dogCards)
+        Object.keys(articleArray).forEach(key => { //created a then and catch including a forEach to wrap everything together
+            value = articleArray[key];
+            value.forEach(arts =>{
+                const containCards = document.querySelector('.cards-container');
+                containCards.append(News(arts))
+            })
+        })
+    })
+    .catch(clear => {
+    console.log(clear);
+});
+
+function News(collumns) { //info given from html 
+    const pupCards = document.createElement('div');
+    const Headline = document.createElement('div');
+    const author = document.createElement('div');
+    const imgContainer = document.createElement('div');
+    const img = document.createElement('img');
+    const authorsName = document.createElement('span');
+
+// added dog info into parent elements 
+    pupCards.appendChild(Headline);
+    pupCards.appendChild(author);
+    author.appendChild(imgContainer);
+    author.appendChild(authorsName);
+    imgContainer.appendChild(img);
+
+    pupCards.classList.add("card");
+    Headline.classList.add("headline");
+    author.classList.add("author");
+    imgContainer.classList.add("img-container");
+
+    Headline.textContent = collumns.headline;
+    authorsName.textContent = collumns.authorName;
+    img.src = collumns.authorPhoto;
+    
+    return pupCards; //returned the cards
+}
